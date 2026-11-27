@@ -10,7 +10,9 @@ import com.scaler.userserviceevening.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(@RequestBody AuthRequestDto authRequestDto) {
+    public ResponseEntity<UserDto> signup(@Valid @RequestBody AuthRequestDto authRequestDto) {
         try{
             User user = authService.signup(authRequestDto.getEmail(), authRequestDto.getPassword());
             if(user == null){
@@ -71,3 +73,4 @@ public class AuthController {
 
     }
 }
+// Global exception handler
